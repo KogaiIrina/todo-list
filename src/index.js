@@ -9,6 +9,7 @@ class TodoForm extends React.Component {
         this.state = {todos: []};
         this.inputRef = React.createRef();
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
     componentDidMount() {
@@ -32,10 +33,29 @@ class TodoForm extends React.Component {
                 this.inputRef.current.value = '';
             });
     }
-  
+
+    handleDelete(id) {
+        fetch('http://localhost:3001/todo/' +id, {
+            method: 'DELETE'
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'OK') {
+                    const index = this.state.todos.findIndex(todo => todo._id === id);
+                    const newTodos = [...this.state.todos];
+                    newTodos.splice(index, 1);
+                    this.setState({ todos: newTodos });
+                } else {
+                    alert('Error removing item');
+                }
+            });
+    }
     render() {
         const renderedTodos = this.state.todos.map((todo, i) => (
-            <div key={i}>{todo.summary}</div>
+            <div key={i}>
+                {todo.summary}
+                <button onClick={() => this.handleDelete(todo._id)}>delete</button>
+            </div>
         ));
         return (
             <div>
@@ -43,6 +63,7 @@ class TodoForm extends React.Component {
                     <label>
                         Todo:
                         <input type="text" ref={this.inputRef} required/>
+                        
                     </label>
                     <button type="submit">Add</button>
                 </form>
