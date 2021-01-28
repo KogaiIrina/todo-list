@@ -1,4 +1,3 @@
-
 import React from 'react';
 import './TodoForm.css';
 import '../node_modules/bootstrap-icons/font/bootstrap-icons.css';
@@ -139,7 +138,7 @@ export default class TodoForm extends React.Component {
             }
         });
         return (
-            <div className="main">
+            <div className="TodoForm">
                 <form className="addNewForm" onSubmit={this.handleSubmit}>
                     <h1 id="heading">What do you want to do?</h1>
                     <label>
