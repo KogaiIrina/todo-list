@@ -1,11 +1,10 @@
 
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
+import './TodoForm.css';
 import '../node_modules/bootstrap-icons/font/bootstrap-icons.css';
 
 
-class TodoForm extends React.Component {
+export default class TodoForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -156,9 +155,3 @@ class TodoForm extends React.Component {
         );
     }
 }
-
-
-ReactDOM.render(
-    <TodoForm />,
-    document.getElementById('root')
-);
