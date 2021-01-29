@@ -1,0 +1,24 @@
+.LoginForm {
+margin-bottom: 10px;
+display: flex;
+flex-direction: column;
+align-items:center;
+}
+
+.LoginForm label {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    font-weight: bold;
+    margin-bottom: 1px;
+    margin-top: 5px;
+
+}
+
+.LoginForm button {
+    margin-top: 5px;
+}
+
+.LoginForm input {
+    margin-top: 2px;
+}
