@@ -21,3 +21,7 @@
 .LoginForm input {
     margin-top: 2px;
 }
+
+.LoginForm h2 {
+    font-size: 40px;
+}

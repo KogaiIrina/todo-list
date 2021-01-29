@@ -6,13 +6,13 @@ export default class LoginForm extends React.Component {
     render() {
         return (
             <form className="LoginForm">
-                <h1>Log In</h1>
-                <div className="input">
+                <h2>Log In</h2>
+                <div>
                     <label>email
                         <input type="text" required />    
                     </label> 
                 </div>
-                <div className="input">
+                <div>
                     <label>password
                         <input type="password" required />
                     </label>
