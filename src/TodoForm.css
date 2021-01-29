@@ -1,37 +1,37 @@
-.main {
+.TodoForm {
   max-width: 350px;
   margin: 0 auto;
 }
-.addNewForm {
+.TodoForm .addNewForm {
   margin-bottom: 10px;
 }
-.mainInput {
+.TodoForm .mainInput {
   margin-left: 10px;
   width: 70%;
   border: none;
   border-bottom: 1px solid black;
 }
-.inputEdit {
+.TodoForm .inputEdit {
   margin-left: 10px;
   width: 70%;
   border: none;
   border-bottom: 1px solid black;
 }
-h1 {
+.TodoForm h1 {
   font-size: 120;
   font-family:'Times New Roman', Times, serif;
   display: flex;
 }
-.renderedTodo {
+.TodoForm .renderedTodo {
   display: flex;
   margin-bottom: 5px;
   justify-content: space-between;
 }
-.button {
+.TodoForm .button {
   border: none;
   background-color: transparent;
   font-size: 1rem;
 }
-.addButton {
+.TodoForm .addButton {
   float: right;
 }
