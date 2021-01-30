@@ -6,13 +6,13 @@ export default class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLoggedIn:false
+            isLoggedIn: false
         };
     }
 
     render() {
         if (!this.state.isLoggedIn) {
-            return (<LoginForm onLogged = {() => this.setState({ isLoggedIn: true })} />);
+            return (<LoginForm onLoggedIn = {() => this.setState({ isLoggedIn: true })} />);
         } else {
             return (<TodoForm />);
         }
