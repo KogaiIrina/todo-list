@@ -8,7 +8,7 @@ export default class LoginForm extends React.Component {
     }
     
     handleSubmit() {
-        this.props.onLogged();
+        this.props.onLoggedIn();
     }
 
     render() {
