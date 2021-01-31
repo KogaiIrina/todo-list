@@ -1,0 +1,10 @@
+{
+  "name": "simple-koa-server",
+  "dependencies": {
+    "koa": "^2.13.0",
+    "koa-bodyparser": "^4.3.0",
+    "koa-router": "^10.0.0",
+    "mongodb": "^3.6.3",
+    "mongoose": "^5.11.9"
+  }
+}
