@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-// const ObjectId = require('mongodb').ObjectId;
 
 mongoose.connect('mongodb://localhost:27017/todo-list', { useNewUrlParser: true });
 
