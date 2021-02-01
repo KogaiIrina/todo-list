@@ -3,7 +3,7 @@ const bodyParser = require('koa-bodyparser');
 const Router = require('koa-router');
 const bson = require('bson');
 
-const Todo = require('./mongodb');
+const { Todo } = require('./mongodb');
 
 const ObjectId = bson.ObjectID;
 
