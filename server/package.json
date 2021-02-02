@@ -1,5 +1,6 @@
 {
-  "name": "simple-koa-server",
+  "name": "todo-server",
+  "author": "Irina Kogay <kogayie1995@gmail.com>",
   "dependencies": {
     "koa": "^2.13.0",
     "koa-bodyparser": "^4.3.0",
