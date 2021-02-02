@@ -1,9 +1,9 @@
-const Koa = require('koa');
-const bodyParser = require('koa-bodyparser');
-const Router = require('koa-router');
-const bson = require('bson');
+import Koa from 'koa';
+import bodyParser from 'koa-bodyparser';
+import Router from 'koa-router';
+import bson from 'bson';
 
-const { Todo } = require('./mongodb');
+import { Todo } from './mongodb';
 
 const ObjectId = bson.ObjectID;
 
