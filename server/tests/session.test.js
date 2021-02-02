@@ -1,4 +1,4 @@
-const SessionStorage = require('../session');
+import SessionStorage from '../SessionStorage.js';
 
 const sessionStorage = new SessionStorage();
 
