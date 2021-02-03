@@ -1,6 +1,5 @@
 import SessionStorage from '../SessionStorage';
 import {jest} from '@jest/globals';
-// import spyFunc from '../SessionStorage';
 
 jest.useFakeTimers();
 

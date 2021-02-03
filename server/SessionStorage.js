@@ -34,8 +34,9 @@ export default class SessionStorage {
             if (date >= difInTime) {
                 delete this.storage[key];
                 console.log('empty');
+            } else {
+                return this.storage[key].date;
             }
-            return this.storage[key].date;
     }
 }
 
@@ -43,7 +44,10 @@ export default class SessionStorage {
 
 // 43200000
 const h = new SessionStorage();
-h.w = h.createSession('ssds');
-console.log(h.w);
-h.r = h.deleteSession(h.w);
-console.log(h.r);
+let w = h.createSession('ssds');
+console.log(w);
+let b = h.getSession(w);
+console.log(b);
+let d = h.deleteSession(w);
+console.log(d);
+
