@@ -31,7 +31,7 @@ export default class SessionStorage {
         let newDate = +new Date();
         let date = this.storage[key].date;
         let difInTime = newDate - (1000 * 60 *1440 * 7);
-            if (date >= difInTime) {
+            if (date <= difInTime) {
                 delete this.storage[key];
                 console.log('empty');
             } else {
