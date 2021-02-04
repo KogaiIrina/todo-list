@@ -1,11 +1,14 @@
-import SessionStorage from '../SessionStorage';
-import {jest} from '@jest/globals';
+import { jest } from '@jest/globals';
 
-jest.useFakeTimers();
+import SessionStorage from '../SessionStorage';
 
 describe('SessionStorage', () => {
     const sessionStorage = new SessionStorage();
     let key;
+
+    afterEach(() => {
+        jest.resetAllMocks();
+    });
 
     test('should return undefined on non-existent key', () => {
         expect(sessionStorage.getSession('non-existent key')).toBeUndefined();
@@ -29,14 +32,15 @@ describe('SessionStorage', () => {
         expect(sessionStorage.getSession(oneMoreKey)).toBe('another data');
         expect(sessionStorage.getSession(key)).toBe('important data');
     });
-    test('waits 7 days before deleting session', () => {
-        key = sessionStorage.createSession('important data');
-        expect(typeof key).toBe('string');
-        expect(sessionStorage.getSession(key)).toBe('important data');
-        // expect(sessionStorage.deleteSession).toHaveBeenCalledTimes(14);
-        expect(sessionStorage.deleteSession).toHaveBeenLastCalledWith(1612362826827);
-        expect(sessionStorage.deleteSession).toBeUndefined();
 
+    test('should create accessedAt on items in the storage', () => {
+        expect(typeof sessionStorage._storage[key].accessedAt).toBe('number');
+    });
+    
+    test('should update accessedAt on access', () => {
+        jest.spyOn(Date, 'now').mockReturnValue(111222333);
+        sessionStorage.getSession(key);
+        expect(sessionStorage._storage[key].accessedAt).toBe(111222333);
     });
 });
 
