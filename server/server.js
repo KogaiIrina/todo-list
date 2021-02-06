@@ -2,10 +2,12 @@ import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import Router from 'koa-router';
 import bson from 'bson';
+import bcrypt from 'bcrypt';
 
-import { Todo } from './mongodb';
+import { Todo, User } from './mongodb';
 
 const ObjectId = bson.ObjectID;
+const salt = bcrypt.genSaltSync(10);
 
 const app = new Koa();
 const router = new Router();
@@ -36,6 +38,14 @@ router.patch('/todo/:id', async ctx => {
     } else {
       ctx.body = '{ "status": "OK" }';
     }
+});
+
+router.post('/register', async ctx => {
+  const newUser = new User({
+    nickname: ctx.request.body.nickname,
+    password: bcrypt.hashSync(ctx.request.body.password, salt)
+  });
+  await newUser.save();
 });
 
 app
