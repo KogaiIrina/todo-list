@@ -7,7 +7,8 @@ import bcrypt from 'bcrypt';
 import { Todo, User } from './mongodb';
 
 const ObjectId = bson.ObjectID;
-const salt = bcrypt.genSaltSync(10);
+
+const SALT = '$2a$10$7h/0RT4RG5eX3602o3/.aO.RYkxKuhGkzvIXHLUiMJlFt1P.6Pe';
 
 const app = new Koa();
 const router = new Router();
@@ -43,9 +44,10 @@ router.patch('/todo/:id', async ctx => {
 router.post('/register', async ctx => {
   const newUser = new User({
     nickname: ctx.request.body.nickname,
-    password: bcrypt.hashSync(ctx.request.body.password, salt)
+    password: await bcrypt.hash(ctx.request.body.password, SALT)
   });
   await newUser.save();
+  ctx.body = JSON.stringify();
 });
 
 app
