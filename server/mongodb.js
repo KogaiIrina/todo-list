@@ -25,7 +25,7 @@ todoSchema.index({ user: 1 });
 export const Todo = mongoose.model('Todo', todoSchema);
 
 const userSchema = new mongoose.Schema({
-  email: {
+  nickname: {
     type: String,
     required: true
   },
@@ -37,6 +37,6 @@ const userSchema = new mongoose.Schema({
   timestamps: true
 });
 
-userSchema.index({ email: 1 }, { unique: true });
+userSchema.index({ nickname: 1 }, { unique: true });
 
 export const User = mongoose.model('User', userSchema);
