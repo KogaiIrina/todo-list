@@ -49,15 +49,19 @@ router.post('/register', async ctx => {
   await newUser.save();
 });
 
-router/post('/login', async ctx => {
+router.post('/login', async ctx => {
+  //создание нового экземпляра класса user
   const user = await User.findOne({ nickname: ctx.request.body.nickname });
-
+  //создание нового экземпляра класса для будущего создания cookie 
+  const newSession = new SessionStorage();
+  //выбрасываем ошибку, если user с передаваемым nickname не найден
   ctx.assert(user, 401, 'User not found. Please login!');
-
-    if (user.password === bcrypt.hash(ctx.request.body.password, SALT)) {
-      const newSession = new SessionStorage ();
-      user.COOKIE = newSession.createSession(ctx.request.body.nickname);
-      ctx.bodу(200);
+  //проверяем пароли на соответствие
+  const match = await bcrypt.compare(user.password, (bcrypt.hash(ctx.request.body.password, SALT)).toString());
+  //если пароли совпали, устанавливаем cookie
+  const cookies = 0;
+    if (match) {
+      cookies = ctx.cookies.set(newSession.createSession(user._id));
     }
 });
 
