@@ -5,6 +5,7 @@ import bson from 'bson';
 import bcrypt from 'bcrypt';
 
 import { Todo, User } from './mongodb';
+import SessionStorage from './SessionStorage';
 
 const ObjectId = bson.ObjectID;
 const SALT = '$2a$10$7h/0RT4RG5eX3602o3/.aO.RYkxKuhGkzvIXHLUiMJlFt1P.6Pe';
@@ -48,6 +49,18 @@ router.post('/register', async ctx => {
   await newUser.save();
 });
 
+router/post('/login', async ctx => {
+  const user = await User.findOne({ nickname: ctx.request.body.nickname });
+
+  ctx.assert(user, 401, 'User not found. Please login!');
+
+    if (user.password === bcrypt.hash(ctx.request.body.password, SALT)) {
+      const newSession = new SessionStorage ();
+      user.COOKIE = newSession.createSession(ctx.request.body.nickname);
+      ctx.bodу(200);
+    }
+});
+
 app
   .use(bodyParser({ enableTypes: ['json', 'form', 'text'] }))
   .use(async (ctx, next) => {
@@ -61,3 +74,4 @@ app
   .use(router.allowedMethods());
 
 app.listen(3001);
+
