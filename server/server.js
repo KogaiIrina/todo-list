@@ -9,6 +9,7 @@ import SessionStorage from './SessionStorage';
 
 const ObjectId = bson.ObjectID;
 const SALT = '$2a$10$7h/0RT4RG5eX3602o3/.aO.RYkxKuhGkzvIXHLUiMJlFt1P.6Pe';
+const SESSION_STORAGE = new SessionStorage();
 
 const app = new Koa();
 const router = new Router();
@@ -50,19 +51,19 @@ router.post('/register', async ctx => {
 });
 
 router.post('/login', async ctx => {
-  //создание нового экземпляра класса user
+  //поиск пользователя в базе данных User по nickname
   const user = await User.findOne({ nickname: ctx.request.body.nickname });
-  //создание нового экземпляра класса для будущего создания cookie 
-  const newSession = new SessionStorage();
   //выбрасываем ошибку, если user с передаваемым nickname не найден
-  ctx.assert(user, 401, 'User not found. Please login!');
+  ctx.assert(user, 401, 'Invalid nickname or password. Please, try again!');
   //проверяем пароли на соответствие
-  const match = await bcrypt.compare(user.password, (bcrypt.hash(ctx.request.body.password, SALT)).toString());
+  const hash = await bcrypt.hash(ctx.request.body.password, SALT);
+  const match = await bcrypt.compare(user.password, hash);
   //если пароли совпали, устанавливаем cookie
-  const cookies = 0;
-    if (match) {
-      cookies = ctx.cookies.set(newSession.createSession(user._id));
-    }
+
+  ctx.assert(match, 401, 'Invalid password!');
+
+  let cookie = SESSION_STORAGE.createSession(user._id);
+  ctx.cookies.set(cookie, { signed: true });
 });
 
 app
@@ -78,4 +79,8 @@ app
   .use(router.allowedMethods());
 
 app.listen(3001);
+
+
+
+
 
