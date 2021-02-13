@@ -9,9 +9,10 @@ import SessionStorage from './SessionStorage';
 
 const ObjectId = bson.ObjectID;
 const SALT = '$2a$10$7h/0RT4RG5eX3602o3/.aO.RYkxKuhGkzvIXHLUiMJlFt1P.6Pe';
+const sessionExpirationCheckIntervalMs = 604800000;
 const SESSION_STORAGE = new SessionStorage();
 
-SESSION_STORAGE.deleteExpired(604800000);
+SESSION_STORAGE.startExpirationInterval(sessionExpirationCheckIntervalMs);
 
 const app = new Koa();
 const router = new Router();
@@ -53,16 +54,15 @@ router.post('/register', async ctx => {
 });
 
 router.post('/login', async ctx => {
-
   const user = await User.findOne({ nickname: ctx.request.body.nickname });
   ctx.assert(user, 401, 'Invalid nickname or password. Please, try again!');
 
   const match = await bcrypt.compare(ctx.request.body.password, user.password);
   ctx.assert(match, 401, 'Invalid nickname or password. Please, try again!');
   
-  const cookie = SESSION_STORAGE.createSession(user._id);
-  ctx.cookies.set('session:=', cookie);
-  ctx.body = '{ "status": "OK" }';
+  const session = SESSION_STORAGE.createSession(user._id);
+  ctx.cookies.set('session', session);
+  ctx.status = 200;
 });
 
 app
