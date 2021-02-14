@@ -9,10 +9,10 @@ import SessionStorage from './SessionStorage';
 
 const ObjectId = bson.ObjectID;
 const SALT = '$2a$10$7h/0RT4RG5eX3602o3/.aO.RYkxKuhGkzvIXHLUiMJlFt1P.6Pe';
-const sessionExpirationCheckIntervalMs = 604800000;
+const ONE_WEEK_MS = 1000 * 60* 60 * 24 * 7;
 const SESSION_STORAGE = new SessionStorage();
 
-SESSION_STORAGE.startExpirationInterval(sessionExpirationCheckIntervalMs);
+SESSION_STORAGE.startExpirationInterval(ONE_WEEK_MS);
 
 const app = new Koa();
 const router = new Router();
