@@ -55,10 +55,10 @@ router.post('/register', async ctx => {
 
 router.post('/login', async ctx => {
   const user = await User.findOne({ nickname: ctx.request.body.nickname });
-  ctx.assert(user, 401, 'Invalid nickname or password. Please, try again!');
+  ctx.assert(user, 401);
 
   const match = await bcrypt.compare(ctx.request.body.password, user.password);
-  ctx.assert(match, 401, 'Invalid nickname or password. Please, try again!');
+  ctx.assert(match, 401);
   
   const session = SESSION_STORAGE.createSession(user._id);
   ctx.cookies.set('session', session);
