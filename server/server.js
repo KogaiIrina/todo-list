@@ -10,7 +10,7 @@ import SessionStorage from './SessionStorage';
 
 const ObjectId = bson.ObjectID;
 const SALT = '$2a$10$7h/0RT4RG5eX3602o3/.aO.RYkxKuhGkzvIXHLUiMJlFt1P.6Pe';
-const ONE_WEEK_MS = 1000 * 60* 60 * 24 * 7;
+const ONE_WEEK_MS = 1000 * 60 * 60 * 24 * 7;
 const SESSION_STORAGE = new SessionStorage();
 
 SESSION_STORAGE.startExpirationInterval(ONE_WEEK_MS);
@@ -39,11 +39,11 @@ router.patch('/todo/:id', async ctx => {
     { _id: new ObjectId(ctx.params.id) },
     ctx.request.body
   );
-    if (!res.n) {
-      ctx.throw(400);
-    } else {
-      ctx.body = '{ "status": "OK" }';
-    }
+  if (!res.n) {
+    ctx.throw(400);
+  } else {
+    ctx.body = '{ "status": "OK" }';
+  }
 });
 
 router.post('/register', async ctx => {
@@ -60,7 +60,7 @@ router.post('/login', async ctx => {
 
   const match = await bcrypt.compare(ctx.request.body.password, user.password);
   ctx.assert(match, 401);
-  
+
   const session = SESSION_STORAGE.createSession(user._id);
   ctx.cookies.set('session', session);
   ctx.status = 200;
