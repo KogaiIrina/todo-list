@@ -1,5 +1,6 @@
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
+import cors from '@koa/cors';
 import Router from 'koa-router';
 import bson from 'bson';
 import bcrypt from 'bcrypt';
@@ -66,14 +67,11 @@ router.post('/login', async ctx => {
 });
 
 app
+  .use(cors({
+    allowHeaders: '*',
+    keepHeadersOnError: true
+  }))
   .use(bodyParser({ enableTypes: ['json', 'form', 'text'] }))
-  .use(async (ctx, next) => {
-    ctx.response.set('Access-Control-Allow-Origin', '*');
-    ctx.response.set('Access-Control-Allow-Methods', '*');
-    ctx.response.set('Access-Control-Allow-Headers', '*');
-    ctx.response.set('Content-Type', 'application/json');
-    await next();
-  })
   .use(router.routes())
   .use(router.allowedMethods());
 

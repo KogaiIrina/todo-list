@@ -50,10 +50,6 @@ export default class TodoForm extends React.Component {
                     alert('Error removing item');
                 }
             });
-        }
-
-    sendPatch(obj) {
-
     }
 
     handleEdit(event, id) {
