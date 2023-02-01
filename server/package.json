@@ -8,7 +8,7 @@
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^10.0.0",
     "mongodb": "^3.6.3",
-    "mongoose": "^5.11.9"
+    "mongoose": "^5.13.15"
   },
   "type": "module",
   "scripts": {
